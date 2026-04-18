@@ -17,6 +17,12 @@ public class Q8 {
             }
         }
 
+        calculo(notas, l, c);
+
+        sc.close();
+    }
+
+    public static void calculo(double[][] notas, int l, int c) {
         int aprovados = 0;
 
         for (int i = 0; i < l; i++) {
@@ -48,7 +54,5 @@ public class Q8 {
         }
 
         System.out.println("Quantidade de alunos aprovados: " + aprovados);
-
-        sc.close();
     }
 }
