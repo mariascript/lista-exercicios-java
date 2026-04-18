@@ -13,6 +13,12 @@ public class Q2 {
             notas[i] = sc.nextDouble();
         }
 
+        desempenho(notas);
+
+        sc.close();
+    }
+
+    public static void desempenho(double[] notas) {
         double maior = notas[0];
         double menor = notas[0];
         double soma = 0;
@@ -39,7 +45,5 @@ public class Q2 {
         System.out.printf("menor nota: %.1f\n", menor);
         System.out.printf("media da turma: %.2f\n", media);
         System.out.printf("quantidade de aprovados: %d\n", aprovados);
-
-        sc.close();
     }
 }
