@@ -8,17 +8,27 @@ public class Q1 {
 
         int n = sc.nextInt();
         int[] consumo = new int[n];
-        int total = 0;
 
         for (int i = 0; i < n; i++) {
             consumo[i] = sc.nextInt();
+        }
+
+        calcularEstatisticas(consumo);
+
+        sc.close();
+    }
+
+    public static void calcularEstatisticas(int[] consumo) {
+        int total = 0;
+
+        for (int i = 0; i < consumo.length; i++) {
             total += consumo[i];
         }
 
-        double media = (double) total / n;
+        double media = (double) total / consumo.length;
 
         int acimaMedia = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < consumo.length; i++) {
             if (consumo[i] > media) {
                 acimaMedia++;
             }
@@ -27,7 +37,5 @@ public class Q1 {
         System.out.println("consumo total: " + total);
         System.out.printf("consumo medio: %.2f\n", media);
         System.out.println("dias acima da media: " + acimaMedia);
-
-        sc.close();
     }
 }
