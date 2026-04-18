@@ -13,6 +13,12 @@ public class Q4 {
 
         int x = sc.nextInt();
 
+        verificar(codigosP, x);
+
+        sc.close();
+    }
+
+    public static void verificar(int[] codigosP, int x) {
         boolean encontrado = false;
         int posicao = -1;
 
@@ -30,7 +36,5 @@ public class Q4 {
         } else {
             System.out.println("codigo nao encontrado");
         }
-
-        sc.close();
     }
 }
