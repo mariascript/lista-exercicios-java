@@ -15,6 +15,12 @@ public class Q7 {
             }
         }
 
+        lerMatriz (matriz, l, c);
+
+        sc.close();
+    }
+
+    public static void lerMatriz(int[][] matriz, int l, int c) {
         int maiorSoma = Integer.MIN_VALUE;
 
         for (int i = 0; i < l; i++) {
@@ -24,15 +30,13 @@ public class Q7 {
                 somaLinha += matriz[i][j];
             }
 
-            System.out.println("Soma da linha " + i + ": " + somaLinha);
+            System.out.println("soma da linha " + i + ": " + somaLinha);
 
             if (somaLinha > maiorSoma) {
                 maiorSoma = somaLinha;
             }
         }
 
-        System.out.println("Maior soma: " + maiorSoma);
-
-        sc.close();
+        System.out.println("maior soma: " + maiorSoma);
     }
 }
