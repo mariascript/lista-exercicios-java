@@ -9,16 +9,25 @@ public class Q3 {
         int n = sc.nextInt();
         double[] valores = new double[n];
 
-        double totalAntes = 0;
-
         for (int i = 0; i < valores.length; i++) {
             valores[i] = sc.nextDouble();
-            totalAntes += valores[i];
         }
 
         int p = sc.nextInt();
-        double fator = 1 + (p / 100.0);
 
+        reajuste(valores, p);
+
+        sc.close();
+    }
+
+    public static void reajuste(double[] valores, int p) {
+        double totalAntes = 0;
+
+        for (int i = 0; i < valores.length; i++) {
+            totalAntes += valores[i];
+        }
+
+        double fator = 1 + (p / 100.0);
         double totalDepois = 0;
 
         System.out.println("novos valores:");
@@ -32,7 +41,5 @@ public class Q3 {
         System.out.println();
         System.out.printf("total antes do reajuste: %.2f\n", totalAntes);
         System.out.printf("total depois do reajuste: %.2f\n", totalDepois);
-
-        sc.close();
     }
 }
