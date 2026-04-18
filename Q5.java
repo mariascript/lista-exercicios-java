@@ -11,6 +11,12 @@ public class Q5 {
             producao[i] = sc.nextInt();
         }
 
+        processar(producao);
+
+        sc.close();
+    }
+
+    public static void processar(int[] producao) {
         int maior = producao[0];
         int menor = producao[0];
         int crescimento = 0;
@@ -33,11 +39,8 @@ public class Q5 {
             }
         }
 
-
         System.out.println("Maior producao: " + maior);
         System.out.println("Menor producao: " + menor);
         System.out.println("Maior crescimento consecutivo: " + crescimento);
-
-        sc.close();
     }
 }
