@@ -2,27 +2,39 @@ import java.util.Scanner;
 
 public class Q18 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
+            int l = sc.nextInt();
+            
+            int c = sc.nextInt();
 
-        int l = sc.nextInt();
-        int c = sc.nextInt();
+            int[][] matriz = new int[l][c];
 
-        int[][] matriz = new int[l][c];
+            for (int i = 0; i < l; i++) {
+                for (int j = 0; j < c; j++) {
+                    matriz[i][j] = sc.nextInt();
+                }
+            }
 
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                matriz[i][j] = sc.nextInt();
+            int[] resultado = resultadoPicos(matriz);
+
+            System.out.println("Quantidade de pontos de pico: " + resultado[0]);
+
+            if (resultado[0] > 0) {
+                System.out.println("Posicao do maior ponto de pico: " 
+                        + resultado[2] + " " + resultado[3]);
+                System.out.println("Valor do maior ponto de pico: " + resultado[1]);
             }
         }
+    }
 
+    public static int[] resultadoPicos(int[][] matriz) {
         int quantidade = 0;
         int maiorPico = matriz[0][0];
-        int linhaP = -1;
-        int colunaP = -1;
+        int linha = -1;
+        int coluna = -1;
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-
                 int valor = matriz[i][j];
                 boolean pico = true;
 
@@ -47,20 +59,13 @@ public class Q18 {
 
                     if (quantidade == 1 || valor > maiorPico) {
                         maiorPico = valor;
-                        linhaP = i;
-                        colunaP = j;
+                        linha = i;
+                        coluna = j;
                     }
                 }
             }
         }
 
-        System.out.println("Quantidade de pontos de pico: " + quantidade);
-
-        if (quantidade > 0) {
-            System.out.println("Posicao do maior ponto de pico: " + linhaP + " " + colunaP);
-            System.out.println("Valor do maior ponto de pico: " + maiorPico);
-        }
-
-        sc.close();
+        return new int[]{quantidade, maiorPico, linha, coluna};
     }
 }
