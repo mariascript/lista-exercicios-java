@@ -4,53 +4,75 @@ import java.util.Scanner;
 public class Q15 {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
-        Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
+            
+            int n = sc.nextInt();
 
-        int n = sc.nextInt();
+            int[][] distancias = lerMatriz(sc, n);
+
+            if (diagonalPrincipalZerada(distancias)) {
+                System.out.println("Diagonal principal com zeros: sim");
+            } else {
+                System.out.println("Diagonal principal com zeros: nao");
+            }
+
+            int[] posicao = maiorForaDiagonal(distancias);
+            int i = posicao[0];
+            int j = posicao[1];
+
+            System.out.printf("Maior valor fora da diagonal: %d (%d,%d)%n",
+                    distancias[i][j], i, j);
+
+            int indiceLinha = linhaMenorSoma(distancias);
+            System.out.printf("Linha com menor soma: %d%n", indiceLinha);
+        }
+    }
+
+    public static int[][] lerMatriz(Scanner sc, int n) {
         int[][] matriz = new int[n][n];
 
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 matriz[i][j] = sc.nextInt();
             }
         }
 
-        boolean diagonalZero = true;
+        return matriz;
+    }
 
+    public static boolean diagonalPrincipalZerada(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             if (matriz[i][i] != 0) {
-                diagonalZero = false;
-                break;
+                return false;
             }
         }
+        return true;
+    }
 
-        int maior = -1;
-        int linhaMaior = 0;
-        int colunaMaior = 0;
+    public static int[] maiorForaDiagonal(int[][] matriz) {
+        int maiorValor = Integer.MIN_VALUE;
+        int linhaMax = 0;
+        int colunaMax = 0;
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-
-                if (i != j) {
-                    if (maior == -1 || matriz[i][j] > maior) {
-                        maior = matriz[i][j];
-                        linhaMaior = i;
-                        colunaMaior = j;
-                    }
+                if (i != j && matriz[i][j] > maiorValor) {
+                    maiorValor = matriz[i][j];
+                    linhaMax = i;
+                    colunaMax = j;
                 }
             }
         }
 
-        int soma = 0;
-        for (int j = 0; j < matriz[0].length; j++) {
-            soma += matriz[0][j];
-        }
+        return new int[]{linhaMax, colunaMax};
+    }
 
-        int menorSoma = soma;
+    public static int linhaMenorSoma(int[][] matriz) {
+        int menorSoma = Integer.MAX_VALUE;
         int indiceLinha = 0;
 
-        for (int i = 1; i < matriz.length; i++) {
-            soma = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            int soma = 0;
 
             for (int j = 0; j < matriz[i].length; j++) {
                 soma += matriz[i][j];
@@ -62,17 +84,6 @@ public class Q15 {
             }
         }
 
-        if (diagonalZero) {
-            System.out.println("Diagonal principal com zeros: sim");
-        } else {
-            System.out.println("Diagonal principal com zeros: nao");
-        }
-
-        System.out.println("Maior valor fora da diagonal: " + maior +
-                " (" + linhaMaior + "," + colunaMaior + ")");
-
-        System.out.println("Linha com menor soma: " + indiceLinha);
-
-        sc.close();
+        return indiceLinha;
     }
 }
