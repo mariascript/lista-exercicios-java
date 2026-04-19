@@ -4,66 +4,88 @@ import java.util.Scanner;
 public class Q14 {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
-        Scanner sc = new Scanner(System.in);
 
-        int l = sc.nextInt();
-        int c = sc.nextInt();
+        try (Scanner sc = new Scanner(System.in)) {
+            int l = sc.nextInt();
+            int c = sc.nextInt();
 
+            int[][] matriz = lerMatriz(sc, l, c);
+
+            double media = calcularMedia(matriz);
+
+            System.out.println("linha com maior soma: " + linhaMaiorSoma(matriz));
+            System.out.println("coluna com menor soma: " + colunaMenorSoma(matriz));
+            System.out.printf("media geral: %.2f%n", media);
+            System.out.println("quantidade acima da media: " + quanntidadeAcimaDaMedia(matriz, media));
+        }
+    }
+
+    public static int[][] lerMatriz(Scanner sc, int l, int c) {
         int[][] matriz = new int[l][c];
 
-        int somaTotal = 0;
-
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < c; j++) {
                 matriz[i][j] = sc.nextInt();
-                somaTotal += matriz[i][j];
             }
         }
 
-        int soma = 0;
-        for (int j = 0; j < matriz[0].length; j++) {
-            soma += matriz[0][j];
-        }
+        return matriz;
+    }
 
-        int maiorSomaLinha = soma;
+    public static int linhaMaiorSoma(int[][] matriz) {
+        int maiorSoma = Integer.MIN_VALUE;
         int indiceLinha = 0;
 
-        for (int i = 1; i < matriz.length; i++) {
-            soma = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            int soma = 0;
 
             for (int j = 0; j < matriz[i].length; j++) {
                 soma += matriz[i][j];
             }
 
-            if (soma > maiorSomaLinha) {
-                maiorSomaLinha = soma;
+            if (soma > maiorSoma) {
+                maiorSoma = soma;
                 indiceLinha = i;
             }
         }
 
-        soma = 0;
-        for (int i = 0; i < matriz.length; i++) {
-            soma += matriz[i][0];
-        }
+        return indiceLinha;
+    }
 
-        int menorSomaColuna = soma;
+    public static int colunaMenorSoma(int[][] matriz) {
+        int menorSoma = Integer.MAX_VALUE;
         int indiceColuna = 0;
 
-        for (int j = 1; j < matriz[0].length; j++) {
-            soma = 0;
+        for (int j = 0; j < matriz[0].length; j++) {
+            int soma = 0;
 
             for (int i = 0; i < matriz.length; i++) {
                 soma += matriz[i][j];
             }
 
-            if (soma < menorSomaColuna) {
-                menorSomaColuna = soma;
+            if (soma < menorSoma) {
+                menorSoma = soma;
                 indiceColuna = j;
             }
         }
 
-        double media = (double) somaTotal / (l * c);
+        return indiceColuna;
+    }
 
+    public static double calcularMedia(int[][] matriz) {
+        int somaTotal = 0;
+        int total = matriz.length * matriz[0].length;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                somaTotal += matriz[i][j];
+            }
+        }
+
+        return (double) somaTotal / total;
+    }
+
+    public static int quantidadeAcimaDaMedia(int[][] matriz, double media) {
         int contador = 0;
 
         for (int i = 0; i < matriz.length; i++) {
@@ -74,11 +96,6 @@ public class Q14 {
             }
         }
 
-        System.out.println("linha com maior soma: " + indiceLinha);
-        System.out.println("coluna com menor soma: " + indiceColuna);
-        System.out.printf("media geral: %.2f\n", media);
-        System.out.println("quantidade acima da media: " + contador);
-
-        sc.close();
+        return contador;
     }
 }
